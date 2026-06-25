@@ -1,0 +1,82 @@
+============================================================
+  MedAI Vision v2 — Setup Guide
+  Architecture: DenseNet-121 (pretrained CNN)
+============================================================
+
+STEP 1 — Install PyTorch (do this first, one time only)
+---------------------------------------------------------
+Open Command Prompt and run:
+
+  pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+If you have an NVIDIA GPU (faster training):
+  pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+
+Then install other requirements:
+  pip install flask pillow numpy opencv-python scikit-learn scipy reportlab matplotlib
+
+
+STEP 2 — Copy your datasets into the data\ folder
+---------------------------------------------------------
+Your data\ folder should look like:
+
+  data\
+  ├── chest_xray\
+  │   ├── train\
+  │   │   ├── NORMAL\        ← chest normal images
+  │   │   └── PNEUMONIA\     ← infection images
+  │   └── test\
+  │       ├── NORMAL\
+  │       └── PNEUMONIA\
+  └── bone_fracture\
+      ├── train\
+      │   ├── fractured\     ← fracture images
+      │   └── not fractured\ ← normal bone images
+      └── val\
+          ├── fractured\
+          └── not fractured\
+
+
+STEP 3 — Train the CNN models
+---------------------------------------------------------
+  python train_cnn.py
+
+This will train:
+  1. Lung Model (DenseNet-121, Normal vs Infection)   ~30-60 min CPU
+  2. Bone Model (DenseNet-121, Normal vs Fracture)    ~20-40 min CPU
+  3. Modality Router (chest vs bone classifier)       ~10-20 min CPU
+
+Wait for: *** TRAINING COMPLETE ***
+
+On GPU these times are ~5x faster.
+
+
+STEP 4 — Run the app
+---------------------------------------------------------
+  python app.py
+
+Open browser: http://localhost:5000
+
+
+============================================================
+  What's different in v2 (vs the old system)
+============================================================
+
+OLD system:
+  - Hand-crafted features (HOG, LBP, FFT etc.)
+  - Traditional ML (Random Forest, MLP)
+  - Occlusion-based fake Grad-CAM
+  - Predefined explanation text
+
+NEW system (v2):
+  - DenseNet-121 CNN pretrained on ImageNet
+  - Fine-tuned on your real X-ray data
+  - Real Grad-CAM++ through actual conv layers
+  - LIME perturbs superpixels on the real CNN
+  - SHAP ablates image regions on the real CNN
+  - NLG module generates explanation from 
+    actual measured values (not predefined text)
+  - Modality router automatically detects
+    chest vs bone X-ray
+
+============================================================
