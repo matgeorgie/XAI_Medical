@@ -1,7 +1,7 @@
-# XAI for Medical Diagnosis (MedAI Vision v2)
+# XAI for Medical Diagnosis
 An Explainable AI (XAI) web application for medical diagnosis using state-of-the-art Deep Learning techniques.
 ## Overview
-MedAI Vision v2 uses a pretrained **DenseNet-121** Convolutional Neural Network (CNN) architecture to analyze medical X-ray images. It automatically routes and classifies images between different modalities (e.g., Chest X-rays vs. Bone X-rays) and provides detailed explainability for its predictions.
+It uses a pretrained **DenseNet-121** Convolutional Neural Network (CNN) architecture to analyze medical X-ray images. It automatically routes and classifies images between different modalities (e.g., Chest X-rays vs. Bone X-rays) and provides detailed explainability for its predictions.
 ### Key Features (v2)
 - **State-of-the-art CNNs**: Utilizes DenseNet-121 pretrained on ImageNet and fine-tuned on real medical X-ray data.
 - **Explainable AI (XAI)**:
